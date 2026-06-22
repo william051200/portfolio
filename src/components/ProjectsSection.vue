@@ -4,19 +4,10 @@ import { projects } from "../data/projects";
 import ProjectCard from "./ProjectCard.vue";
 
 const track = ref<HTMLElement | null>(null);
-const dragging = ref(false);
 
 let targetLeft = 0;
 let rafId = 0;
 let animating = false;
-
-// Pointer drag-to-scroll state.
-let pointerDown = false;
-let startX = 0;
-let startScroll = 0;
-let activePointerId: number | null = null;
-let suppressClick = false;
-const DRAG_THRESHOLD = 5;
 
 function animate() {
   const el = track.value;
@@ -62,62 +53,6 @@ function onWheel(e: WheelEvent) {
   }
 }
 
-function onPointerDown(e: PointerEvent) {
-  // Let touch use native momentum scrolling; only drag with mouse/pen.
-  if (e.pointerType === "touch" || e.button !== 0) return;
-  const el = track.value;
-  if (!el) return;
-
-  pointerDown = true;
-  dragging.value = false;
-  startX = e.clientX;
-  startScroll = el.scrollLeft;
-  activePointerId = e.pointerId;
-}
-
-function onPointerMove(e: PointerEvent) {
-  if (!pointerDown) return;
-  const el = track.value;
-  if (!el) return;
-
-  const dx = e.clientX - startX;
-  if (!dragging.value && Math.abs(dx) < DRAG_THRESHOLD) return;
-
-  if (!dragging.value) {
-    dragging.value = true;
-    // Stop any in-flight wheel animation so it doesn't fight the drag.
-    animating = false;
-    if (rafId) cancelAnimationFrame(rafId);
-    if (activePointerId !== null) el.setPointerCapture(activePointerId);
-  }
-
-  e.preventDefault();
-  el.scrollLeft = startScroll - dx;
-}
-
-function endDrag() {
-  if (!pointerDown) return;
-  pointerDown = false;
-  const el = track.value;
-  if (el && activePointerId !== null && el.hasPointerCapture(activePointerId)) {
-    el.releasePointerCapture(activePointerId);
-  }
-  activePointerId = null;
-  if (dragging.value) {
-    // Swallow the click that fires after a drag so links aren't triggered.
-    suppressClick = true;
-  }
-  dragging.value = false;
-}
-
-function onClickCapture(e: MouseEvent) {
-  if (suppressClick) {
-    suppressClick = false;
-    e.preventDefault();
-    e.stopPropagation();
-  }
-}
-
 onMounted(() => {
   track.value?.addEventListener("wheel", onWheel, { passive: false });
 });
@@ -136,18 +71,7 @@ onBeforeUnmount(() => {
         A selection of things I've built.
       </p>
 
-      <div
-        ref="track"
-        class="projects"
-        :class="{ 'projects--dragging': dragging }"
-        @pointerdown="onPointerDown"
-        @pointermove="onPointerMove"
-        @pointerup="endDrag"
-        @pointercancel="endDrag"
-        @pointerleave="endDrag"
-        @click.capture="onClickCapture"
-        @dragstart.prevent
-      >
+      <div ref="track" class="projects">
         <ProjectCard
           v-for="project in projects"
           :key="project.title"
@@ -172,12 +96,6 @@ onBeforeUnmount(() => {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   padding-bottom: var(--space-3);
-  cursor: grab;
-}
-
-.projects--dragging {
-  cursor: grabbing;
-  user-select: none;
 }
 
 .projects > * {
