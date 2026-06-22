@@ -1,0 +1,181 @@
+:root {
+  /* Color theme */
+  --color-bg: #0f1117;
+  --color-bg-soft: #161922;
+  --color-surface: #1c2030;
+  --color-border: #2a2f40;
+  --color-text: #e6e9f0;
+  --color-text-muted: #9aa3b8;
+  --color-primary: #6c8cff;
+  --color-primary-hover: #5577ff;
+  --color-accent: #34d6b5;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --max-width: 1080px;
+  --nav-height: 64px;
+
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  --transition: 180ms ease;
+
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  color-scheme: dark;
+}
+
+/* Light theme overrides — auto-applied for users who prefer light mode. */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #f7f8fb;
+    --color-bg-soft: #ffffff;
+    --color-surface: #ffffff;
+    --color-border: #e3e6ee;
+    --color-text: #1a1d27;
+    --color-text-muted: #5b6478;
+    --color-primary: #3b5bff;
+    --color-primary-hover: #2f4ce6;
+    --color-accent: #119a82;
+    --shadow: 0 8px 30px rgba(20, 30, 60, 0.08);
+    color-scheme: light;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+  margin: 0 0 var(--space-3);
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 var(--space-3);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Layout helpers */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.section {
+  padding: var(--space-6) 0;
+  /* Offset for the sticky nav when jumping to anchors. */
+  scroll-margin-top: var(--nav-height);
+}
+
+.section--alt {
+  background-color: var(--color-bg-soft);
+}
+
+.section__title {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  text-align: center;
+}
+
+.section__lead {
+  color: var(--color-text-muted);
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto var(--space-5);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition), transform var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background-color: var(--color-primary-hover);
+  color: #fff;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--ghost:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    transition: none !important;
+  }
+}
