@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import { profile } from "../data/profile";
 import SocialLinks from "./SocialLinks.vue";
-
-const initials = profile.name
-  .split(" ")
-  .map((p) => p[0])
-  .join("")
-  .slice(0, 2)
-  .toUpperCase();
 </script>
 
 <template>
   <section id="home" class="section hero">
-    <div class="container hero__inner">
+    <div class="container hero__inner" :class="{ 'hero__inner--no-avatar': !profile.avatar }">
       <div class="hero__content">
         <p class="hero__eyebrow">Hi, I'm</p>
         <h1 class="hero__name">{{ profile.name }}</h1>
@@ -36,9 +29,8 @@ const initials = profile.name
         <SocialLinks :links="profile.socials" class="hero__socials" />
       </div>
 
-      <div class="hero__avatar" aria-hidden="true">
-        <img v-if="profile.avatar" :src="profile.avatar" :alt="profile.name" />
-        <span v-else>{{ initials }}</span>
+      <div v-if="profile.avatar" class="hero__avatar" aria-hidden="true">
+        <img :src="profile.avatar" :alt="profile.name" />
       </div>
     </div>
   </section>
@@ -56,6 +48,10 @@ const initials = profile.name
   align-items: center;
   gap: var(--space-5);
   min-height: calc(100vh - var(--nav-height) - var(--space-6));
+}
+
+.hero__inner--no-avatar {
+  grid-template-columns: 1fr;
 }
 
 .hero__eyebrow {
