@@ -1,7 +1,7 @@
 import type { Profile } from "../types";
 
 export const profile: Profile = {
-  name: "Ng Wei Lun (William)",
+  name: "William Ng",
   headline: "Software Development Engineer",
   tagline:
     "I build reliable developer tooling and full-stack applications — currently developing and supporting the Microsoft Azure CLI.",
