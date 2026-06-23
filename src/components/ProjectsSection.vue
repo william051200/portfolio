@@ -7,22 +7,25 @@ const track = ref<HTMLElement | null>(null);
 
 let targetLeft = 0;
 let rafId = 0;
-let animating = false;
+
+function stopAnimation() {
+  if (rafId) cancelAnimationFrame(rafId);
+  rafId = 0;
+}
 
 function animate() {
   const el = track.value;
   if (!el) {
-    animating = false;
+    rafId = 0;
     return;
   }
-  const current = el.scrollLeft;
-  const diff = targetLeft - current;
-  if (Math.abs(diff) < 0.5) {
+  const diff = targetLeft - el.scrollLeft;
+  if (Math.abs(diff) <= 1) {
     el.scrollLeft = targetLeft;
-    animating = false;
+    rafId = 0;
     return;
   }
-  el.scrollLeft = current + diff * 0.18;
+  el.scrollLeft += diff * 0.18;
   rafId = requestAnimationFrame(animate);
 }
 
@@ -39,27 +42,30 @@ function onWheel(e: WheelEvent) {
 
   // Let the page scroll normally once the row hits an edge.
   if ((delta < 0 && atStart) || (delta > 0 && atEnd)) {
-    animating = false;
+    stopAnimation();
     return;
   }
 
   e.preventDefault();
-  if (!animating) targetLeft = el.scrollLeft;
+  if (!rafId) targetLeft = el.scrollLeft;
   targetLeft = Math.max(0, Math.min(maxLeft, targetLeft + delta));
+  if (!rafId) rafId = requestAnimationFrame(animate);
+}
 
-  if (!animating) {
-    animating = true;
-    rafId = requestAnimationFrame(animate);
-  }
+// Manual interaction (dragging the scrollbar) should win over the wheel animation.
+function onPointerDown() {
+  stopAnimation();
 }
 
 onMounted(() => {
   track.value?.addEventListener("wheel", onWheel, { passive: false });
+  track.value?.addEventListener("pointerdown", onPointerDown);
 });
 
 onBeforeUnmount(() => {
   track.value?.removeEventListener("wheel", onWheel);
-  if (rafId) cancelAnimationFrame(rafId);
+  track.value?.removeEventListener("pointerdown", onPointerDown);
+  stopAnimation();
 });
 </script>
 
