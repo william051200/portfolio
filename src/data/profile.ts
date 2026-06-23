@@ -20,7 +20,7 @@ export const profile: Profile = {
   ],
   highlights: [
     { label: "Years Experience", value: "4+" },
-    { label: "Projects Shipped", value: "5+" },
-    { label: "Tech Stack", value: "15+" },
+    { label: "Projects Shipped", value: "6+" },
+    { label: "Tech Stack", value: "20+" },
   ],
 };
