@@ -68,7 +68,7 @@ onBeforeUnmount(() => {
     <div class="container">
       <h2 class="section__title">Projects</h2>
       <p class="section__lead">
-        A selection of things I've built.
+        A selection of things I have built and worked on before.
       </p>
 
       <div ref="track" class="projects">

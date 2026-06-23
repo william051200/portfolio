@@ -2,6 +2,15 @@ import type { Project } from "../types";
 
 export const projects: Project[] = [
   {
+    title: "Azure CLI",
+    description:
+      "Contributions to Microsoft's official open-source Azure CLI, the cross-platform command-line tool for managing Azure resources, written primarily in Python and used by developers worldwide.",
+    tags: ["Python", "Azure", "CLI", "Open Source"],
+    links: [
+      { label: "Source", url: "https://github.com/Azure/azure-cli" },
+    ],
+  },
+  {
     title: "Resume Builder",
     description:
       "A browser-based resume builder (Vue 3, Vite, TypeScript) that generates clean, print-ready resumes entirely client-side, with JSON import/export, a live preview, and a type-safe data model rendered into an ATS-friendly, print-optimized layout.",
@@ -9,7 +18,6 @@ export const projects: Project[] = [
     links: [
       { label: "Source", url: "https://github.com/william051200/i-build-resume" },
     ],
-    featured: true,
   },
   {
     title: "GitHerd",
@@ -19,7 +27,6 @@ export const projects: Project[] = [
     links: [
       { label: "Source", url: "https://github.com/william051200/githerd" },
     ],
-    featured: true,
   },
   {
     title: "ArtifactLens",
@@ -29,7 +36,6 @@ export const projects: Project[] = [
     links: [
       { label: "Source", url: "https://github.com/william051200/ArtifactLens" },
     ],
-    featured: true,
   },
   {
     title: "In-House Smart Camera Inspection System",
