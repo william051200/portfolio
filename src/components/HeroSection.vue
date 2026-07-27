@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { profile } from "../data/profile";
 import SocialLinks from "./SocialLinks.vue";
+import AsciiAvatar from "./AsciiAvatar.vue";
 </script>
 
 <template>
   <section id="home" class="section hero">
-    <div class="container hero__inner" :class="{ 'hero__inner--no-avatar': !profile.avatar }">
+    <div class="container hero__inner">
       <div class="hero__content">
         <p class="hero__eyebrow">Hi, I'm</p>
         <h1 class="hero__name">{{ profile.name }}</h1>
@@ -29,8 +30,8 @@ import SocialLinks from "./SocialLinks.vue";
         <SocialLinks :links="profile.socials" class="hero__socials" />
       </div>
 
-      <div v-if="profile.avatar" class="hero__avatar" aria-hidden="true">
-        <img :src="profile.avatar" :alt="profile.name" />
+      <div class="hero__avatar-wrap" aria-hidden="false">
+        <AsciiAvatar />
       </div>
     </div>
   </section>
@@ -48,10 +49,6 @@ import SocialLinks from "./SocialLinks.vue";
   align-items: center;
   gap: var(--space-5);
   min-height: calc(100vh - var(--nav-height) - var(--space-6));
-}
-
-.hero__inner--no-avatar {
-  grid-template-columns: 1fr;
 }
 
 .hero__eyebrow {
@@ -85,25 +82,9 @@ import SocialLinks from "./SocialLinks.vue";
   margin: var(--space-4) 0;
 }
 
-.hero__avatar {
-  justify-self: center;
-  width: clamp(180px, 26vw, 280px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: clamp(3rem, 8vw, 5rem);
-  font-weight: 800;
-  color: #fff;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.hero__avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hero__avatar-wrap {
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 820px) {
@@ -114,7 +95,7 @@ import SocialLinks from "./SocialLinks.vue";
     gap: var(--space-5);
   }
 
-  .hero__avatar {
+  .hero__avatar-wrap {
     order: -1;
   }
 
