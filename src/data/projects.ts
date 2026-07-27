@@ -11,6 +11,16 @@ export const projects: Project[] = [
     ],
   },
   {
+    title: "Background Remover",
+    description:
+      "A private, browser-based app that removes image backgrounds entirely client-side with no uploads or server, offering AI segmentation via @imgly/background-removal (ONNX model running in-browser through WebAssembly) and a fast deterministic color-key mode for logos, with a transparency preview and transparent-PNG export.",
+    tags: ["Vue", "Vite", "TypeScript", "WebAssembly", "AI", "Client-Side"],
+    links: [
+      { label: "Source", url: "https://github.com/william051200/background-remover" },
+      { label: "Live Demo", url: "https://william051200.github.io/background-remover/" },
+    ],
+  },
+  {
     title: "Resume Builder",
     description:
       "A browser-based resume builder (Vue 3, Vite, TypeScript) that generates clean, print-ready resumes entirely client-side, with JSON import/export, a live preview, and a type-safe data model rendered into an ATS-friendly, print-optimized layout.",
