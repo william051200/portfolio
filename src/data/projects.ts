@@ -31,6 +31,16 @@ export const projects: Project[] = [
     ],
   },
   {
+    title: "ASCII Art",
+    description:
+      "A Flask + Pillow web app that converts any image into ASCII art entirely in-memory, with a live preview, plain or colored output, character-set presets, and fine-grained image controls.",
+    tags: ["Python", "Flask", "Pillow", "Vercel", "Web App"],
+    links: [
+      { label: "Source", url: "https://github.com/william051200/ascii-art" },
+      { label: "Live Demo", url: "https://iloveasciiart.vercel.app/" },
+    ],
+  },
+  {
     title: "GitHerd",
     description:
       "A Windows CLI tool that syncs many Git repositories in parallel from a single command, with live per-repo progress bars, configurable JSON-driven workflows, and an auto-update mechanism via GitHub Releases.",
