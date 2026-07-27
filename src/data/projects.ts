@@ -27,6 +27,7 @@ export const projects: Project[] = [
     tags: ["Vue", "Vite", "TypeScript", "Client-Side"],
     links: [
       { label: "Source", url: "https://github.com/william051200/i-build-resume" },
+      { label: "Live Demo", url: "https://william051200.github.io/i-build-resume/" },
     ],
   },
   {
