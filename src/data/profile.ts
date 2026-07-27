@@ -4,10 +4,11 @@ export const profile: Profile = {
   name: "William Ng",
   headline: "Software Development Engineer",
   tagline:
-    "I build reliable developer tooling and full-stack applications — currently developing and supporting the Microsoft Azure CLI.",
+    "I build reliable developer tooling and full-stack applications, turning day-to-day operational burdens into robust, automated systems. Currently developing and supporting the Microsoft Azure CLI.",
   about: [
     "I'm a software engineer based in Penang who enjoys building dependable tooling and shipping full-stack products. I currently work on the Microsoft Azure CLI at Centific, handling feature development, bug fixes, migrations, and triaging customer-reported issues, while leveraging GitHub Copilot to build automation and internal tooling.",
-    "Before that I spent three years at Jabil building TypeScript front ends and Python back ends, containerizing systems with Docker, and integrating hardware for IoT and smart-camera inspection solutions. I like turning ambiguous problems into clean, maintainable software — from CLI tools and REST APIs to React apps and Raspberry Pi deployments.",
+    "Before that I spent three years at Jabil building TypeScript front ends and Python back ends, containerizing systems with Docker, and integrating hardware for IoT and smart-camera inspection solutions. I like turning ambiguous problems into clean, maintainable software, from CLI tools and REST APIs to React apps and Raspberry Pi deployments.",
+    "Outside of work, I like building small hobby projects for the fun of it, side tools and apps that let me experiment with new ideas and technologies. It's genuinely what I enjoy doing, turning a spark of an idea into something that actually works.",
   ],
   location: "Penang, Malaysia",
   email: "williamng0512@gmail.com",

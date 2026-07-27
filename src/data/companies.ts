@@ -6,7 +6,7 @@ export const companies: Company[] = [
     role: "Software Development Engineer",
     period: "Nov 2025 — Present",
     summary:
-      "Develop, support, and triage issues for the Microsoft Azure CLI — feature development, bug fixes, and migrations — and build Copilot-powered automation and internal tooling to streamline development and support workflows.",
+      "Develop, support, and triage issues for the Microsoft Azure CLI, including feature development, bug fixes, and migrations, and build Copilot-powered automation and internal tooling to streamline development and support workflows.",
     logo: `${import.meta.env.BASE_URL}logos/centific.png`,
     url: "https://www.centific.com",
   },
