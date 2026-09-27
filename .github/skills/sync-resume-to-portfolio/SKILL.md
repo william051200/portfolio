@@ -11,9 +11,9 @@ description: >-
 # Sync Resume → Portfolio
 
 Keep this portfolio in sync with the owner's resume. The portfolio stores all
-content in typed data files under `src/data/`; the resume lives at
-`public/Resume.pdf`. Your job is to read the resume and **add** anything new to
-the portfolio data files.
+content in typed data files under `src/data/`. Your job is to read a
+user-supplied resume and **add** anything new to the portfolio data files. Do
+not publish or copy the resume into the repository.
 
 ## Golden rule: additive only
 
@@ -24,8 +24,7 @@ If something is in the portfolio but not the resume, leave it untouched.
 
 ## Inputs
 
-- Resume: `public/Resume.pdf` by default. If the user supplies a different path
-  or attaches a document, use that instead.
+- Resume: use the path or attachment supplied by the user.
 - Portfolio data files (all under `src/data/`):
   - `projects.ts` — array of `Project`
   - `skills.ts` — array of `SkillGroup`

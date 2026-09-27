@@ -16,15 +16,6 @@ import AsciiAvatar from "./AsciiAvatar.vue";
         <div class="hero__actions">
           <a href="#projects" class="btn btn--primary">View Projects</a>
           <a href="#contact" class="btn btn--ghost">Get in Touch</a>
-          <a
-            v-if="profile.resumeUrl"
-            :href="profile.resumeUrl"
-            class="btn btn--ghost"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Download Resume
-          </a>
         </div>
 
         <SocialLinks :links="profile.socials" class="hero__socials" />

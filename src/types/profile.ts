@@ -17,8 +17,6 @@ export interface Profile {
   email: string;
   /** Optional path to an avatar image placed in /public. */
   avatar?: string;
-  /** Optional link to a downloadable resume placed in /public. */
-  resumeUrl?: string;
   socials: SocialLink[];
   /** Small headline stats shown in the About section. */
   highlights: { label: string; value: string }[];

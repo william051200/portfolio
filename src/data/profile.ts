@@ -13,7 +13,6 @@ export const profile: Profile = {
   location: "Penang, Malaysia",
   email: "williamng0512@gmail.com",
   // avatar: "avatar.jpg",      // place an image in /public and set the filename
-  resumeUrl: `${import.meta.env.BASE_URL}Resume.pdf`, // place resume.pdf in /public
   socials: [
     { label: "GitHub", url: "https://github.com/william051200", icon: "github" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/william1205/", icon: "linkedin" },
