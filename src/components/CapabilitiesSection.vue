@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useDraggableMarquee } from "../composables/useDraggableMarquee";
-import { skills } from "../data/skills";
+import { capabilityTechnologies } from "../data/skills";
 import { resolveSkillIcon } from "./skillIcons";
 
 const capabilityItems = computed(() =>
-  skills.flatMap((group) =>
-    group.items.map((name) => ({
-      id: `${group.category}-${name}`.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-      name,
-      category: group.category,
-    }))
-  )
+  capabilityTechnologies.map((name) => ({
+    id: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    name,
+  }))
 );
 
 const {
   viewport,
+  track,
   sequence,
   isDragging,
   isPressed,
@@ -24,7 +22,7 @@ const {
   onPointerDown,
   onPointerMove,
   finishPointer,
-  toggleUserPause,
+  onKeyDown,
 } = useDraggableMarquee();
 
 function initials(name: string): string {
@@ -38,7 +36,10 @@ function initials(name: string): string {
 </script>
 
 <template>
-  <section id="capabilities" class="section capabilities-section">
+  <section
+    id="capabilities"
+    class="section section--canvas capabilities-section"
+  >
     <div class="container">
       <p class="section__kicker">Technical Capabilities</p>
       <h2 class="section__title">Technologies I Build With</h2>
@@ -47,18 +48,10 @@ function initials(name: string): string {
         support, and AI-enabled systems.
       </p>
 
-      <div class="capabilities__toolbar">
-        <p>Press and drag to explore</p>
-        <button
-          v-if="!reducedMotion"
-          type="button"
-          class="capabilities__pause"
-          :aria-pressed="isUserPaused"
-          @click="toggleUserPause"
-        >
-          {{ isUserPaused ? "Resume animation" : "Pause animation" }}
-        </button>
-      </div>
+      <p id="capabilities-instructions" class="visually-hidden">
+        Drag horizontally to explore technologies. Press Space or Enter to
+        pause or resume automatic movement.
+      </p>
     </div>
 
     <div
@@ -68,22 +61,27 @@ function initials(name: string): string {
         'is-pressed': isPressed,
         'is-dragging': isDragging,
       }"
-      role="region"
-      aria-label="Technology capabilities"
+      role="group"
+      :aria-label="
+        reducedMotion || isUserPaused
+          ? 'Technology capabilities. Automatic movement paused.'
+          : 'Technology capabilities. Automatic movement running.'
+      "
+      aria-describedby="capabilities-instructions"
       tabindex="0"
       @pointerdown="onPointerDown"
       @pointermove="onPointerMove"
       @pointerup="finishPointer"
       @pointercancel="finishPointer"
       @lostpointercapture="finishPointer"
+      @keydown="onKeyDown"
     >
-      <div class="capabilities__track">
+      <div ref="track" class="capabilities__track">
         <ul ref="sequence" class="capabilities__sequence">
           <li
             v-for="item in capabilityItems"
             :key="item.id"
             class="capabilities__item"
-            :title="item.category"
           >
             <component
               :is="resolveSkillIcon(item.name)"
@@ -125,43 +123,9 @@ function initials(name: string): string {
   overflow: hidden;
 }
 
-.capabilities__toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3);
-  min-height: 2rem;
-  margin-top: calc(var(--space-5) * -0.55);
-  margin-bottom: var(--space-4);
-}
-
-.capabilities__toolbar p {
-  margin: 0;
-  color: var(--color-text-muted);
-  font-size: 0.8rem;
-}
-
-.capabilities__pause {
-  padding: 0.3rem 0.7rem;
-  color: var(--color-text);
-  background: transparent;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.capabilities__pause:hover {
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-}
-
 .capabilities__viewport {
   width: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow: hidden;
   cursor: grab;
   user-select: none;
   touch-action: pan-y;
@@ -181,10 +145,6 @@ function initials(name: string): string {
   );
 }
 
-.capabilities__viewport::-webkit-scrollbar {
-  display: none;
-}
-
 .capabilities__viewport.is-pressed,
 .capabilities__viewport.is-dragging {
   cursor: grabbing;
@@ -193,6 +153,7 @@ function initials(name: string): string {
 .capabilities__track {
   display: flex;
   width: max-content;
+  will-change: transform;
 }
 
 .capabilities__sequence {
@@ -254,11 +215,6 @@ function initials(name: string): string {
 }
 
 @media (max-width: 580px) {
-  .capabilities__toolbar {
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
   .capabilities__sequence {
     gap: var(--space-4);
   }

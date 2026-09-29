@@ -1,10 +1,11 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { wrapMarqueeOffset } from "./marqueeMath";
 
-const SPEED_PX_PER_SECOND = 28;
-const DRAG_THRESHOLD_PX = 4;
+const SPEED_PX_PER_SECOND = 34;
 
 export function useDraggableMarquee() {
   const viewport = ref<HTMLElement | null>(null);
+  const track = ref<HTMLElement | null>(null);
   const sequence = ref<HTMLElement | null>(null);
   const isDragging = ref(false);
   const isPressed = ref(false);
@@ -14,41 +15,36 @@ export function useDraggableMarquee() {
     () => reducedMotion.value || isUserPaused.value || isPressed.value
   );
 
-  let animationFrame = 0;
-  let previousTime = 0;
+  let offset = 0;
   let sequenceWidth = 0;
+  let previousTime = 0;
+  let animationFrame = 0;
   let activePointerId: number | null = null;
   let previousPointerX = 0;
-  let dragDistance = 0;
   let resizeObserver: ResizeObserver | null = null;
   let motionQuery: MediaQueryList | null = null;
 
-  function normalizedOffset(value: number): number {
-    if (sequenceWidth <= 0) return 0;
-    return ((value % sequenceWidth) + sequenceWidth) % sequenceWidth;
-  }
-
-  function normalizePosition() {
-    const element = viewport.value;
-    if (!element || sequenceWidth <= 0) return;
-    element.scrollLeft = normalizedOffset(element.scrollLeft);
+  function render() {
+    if (!track.value) return;
+    track.value.style.transform = `translate3d(${-offset}px, 0, 0)`;
   }
 
   function measure() {
-    sequenceWidth = sequence.value?.offsetWidth ?? 0;
-    normalizePosition();
+    sequenceWidth = sequence.value?.getBoundingClientRect().width ?? 0;
+    offset = wrapMarqueeOffset(offset, sequenceWidth);
+    render();
   }
 
   function animate(time: number) {
-    const element = viewport.value;
     const elapsed = Math.min(time - previousTime, 50);
     previousTime = time;
 
-    if (element && sequenceWidth > 0) {
-      if (!isPaused.value) {
-        element.scrollLeft += (SPEED_PX_PER_SECOND * elapsed) / 1000;
-      }
-      normalizePosition();
+    if (!isPaused.value && sequenceWidth > 0) {
+      offset = wrapMarqueeOffset(
+        offset + (SPEED_PX_PER_SECOND * elapsed) / 1000,
+        sequenceWidth
+      );
+      render();
     }
 
     animationFrame = window.requestAnimationFrame(animate);
@@ -56,28 +52,30 @@ export function useDraggableMarquee() {
 
   function onPointerDown(event: PointerEvent) {
     const element = viewport.value;
-    if (!element || activePointerId !== null || !event.isPrimary) return;
+    if (
+      !element ||
+      !event.isPrimary ||
+      event.button !== 0 ||
+      activePointerId !== null
+    ) {
+      return;
+    }
 
     activePointerId = event.pointerId;
     previousPointerX = event.clientX;
-    dragDistance = 0;
     isPressed.value = true;
     element.setPointerCapture(event.pointerId);
   }
 
   function onPointerMove(event: PointerEvent) {
-    const element = viewport.value;
-    if (!element || event.pointerId !== activePointerId) return;
+    if (event.pointerId !== activePointerId) return;
 
     const movement = event.clientX - previousPointerX;
     previousPointerX = event.clientX;
-    dragDistance += Math.abs(movement);
-
-    if (dragDistance >= DRAG_THRESHOLD_PX) {
-      isDragging.value = true;
-    }
-
-    element.scrollLeft = normalizedOffset(element.scrollLeft - movement);
+    isDragging.value = true;
+    offset = wrapMarqueeOffset(offset - movement, sequenceWidth);
+    render();
+    event.preventDefault();
   }
 
   function finishPointer(event: PointerEvent) {
@@ -96,7 +94,9 @@ export function useDraggableMarquee() {
     previousTime = performance.now();
   }
 
-  function toggleUserPause() {
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key !== " " && event.key !== "Enter") return;
+    event.preventDefault();
     isUserPaused.value = !isUserPaused.value;
     previousTime = performance.now();
   }
@@ -113,6 +113,7 @@ export function useDraggableMarquee() {
 
     resizeObserver = new ResizeObserver(measure);
     if (sequence.value) resizeObserver.observe(sequence.value);
+    document.fonts?.ready.then(measure);
     measure();
 
     previousTime = performance.now();
@@ -127,6 +128,7 @@ export function useDraggableMarquee() {
 
   return {
     viewport,
+    track,
     sequence,
     isDragging,
     isPressed,
@@ -135,6 +137,6 @@ export function useDraggableMarquee() {
     onPointerDown,
     onPointerMove,
     finishPointer,
-    toggleUserPause,
+    onKeyDown,
   };
 }

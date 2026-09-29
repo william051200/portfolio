@@ -108,8 +108,82 @@ img {
   scroll-margin-top: var(--nav-height);
 }
 
-.section--alt {
-  background-color: var(--color-bg-soft);
+.section--canvas,
+.section--surface,
+.section--spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.section--canvas > *,
+.section--surface > *,
+.section--spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section--canvas {
+  --section-glow: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  background-color: var(--color-bg);
+}
+
+.section--canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 82% 18%, var(--section-glow), transparent 34%),
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-text) 10%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: auto, 28px 28px;
+  opacity: 0.55;
+}
+
+.section--surface {
+  background-color: color-mix(
+    in srgb,
+    var(--color-bg-soft) 84%,
+    var(--color-bg)
+  );
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 72%, transparent);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-border) 72%, transparent);
+}
+
+.section--surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      color-mix(in srgb, var(--color-border) 28%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-border) 28%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  opacity: 0.32;
+}
+
+.section--spotlight {
+  background:
+    radial-gradient(
+      ellipse at 50% 62%,
+      color-mix(in srgb, var(--color-primary) 14%, transparent),
+      transparent 58%
+    ),
+    var(--color-bg-soft);
 }
 
 .section__title {
@@ -178,6 +252,28 @@ img {
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (prefers-color-scheme: light) {
+  .section--canvas::before {
+    opacity: 0.32;
+  }
+
+  .section--surface::before {
+    opacity: 0.22;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -12,7 +12,7 @@ function initials(name: string): string {
 </script>
 
 <template>
-  <section id="experience" class="section experience-section">
+  <section id="experience" class="section section--surface experience-section">
     <div class="container">
       <p class="section__kicker">Career Journey</p>
       <h2 class="section__title">Experience</h2>

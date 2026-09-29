@@ -17,6 +17,8 @@
   "devDependencies": {
     "@iconify-json/devicon": "^1.2.62",
     "@iconify-json/logos": "^1.2.11",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/simple-icons": "^1.2.97",
     "@vitejs/plugin-vue": "^5.2.1",
     "typescript": "^5.7.3",
     "unplugin-icons": "^23.0.1",

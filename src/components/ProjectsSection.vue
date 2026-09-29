@@ -1,10 +1,20 @@
 <script setup lang="ts">
+import { useDragScroll } from "../composables/useDragScroll";
 import { projects } from "../data/projects";
 import ProjectCard from "./ProjectCard.vue";
+
+const {
+  element: projectTrack,
+  isDragging,
+  onPointerDown,
+  onPointerMove,
+  finishPointer,
+  onClickCapture,
+} = useDragScroll();
 </script>
 
 <template>
-  <section id="projects" class="section section--alt">
+  <section id="projects" class="section section--spotlight">
     <div class="container projects__container">
       <p class="section__kicker">Solutions I've Delivered</p>
       <h2 class="section__title">Projects</h2>
@@ -13,7 +23,17 @@ import ProjectCard from "./ProjectCard.vue";
         contributed to.
       </p>
 
-      <div class="projects">
+      <div
+        ref="projectTrack"
+        class="projects"
+        :class="{ 'is-dragging': isDragging }"
+        @pointerdown="onPointerDown"
+        @pointermove="onPointerMove"
+        @pointerup="finishPointer"
+        @pointercancel="finishPointer"
+        @lostpointercapture="finishPointer"
+        @click.capture="onClickCapture"
+      >
         <ProjectCard
           v-for="project in projects"
           :key="project.title"
@@ -39,12 +59,13 @@ import ProjectCard from "./ProjectCard.vue";
   overflow-x: auto;
   padding: 4px 4px var(--space-3);
   -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  overscroll-behavior-inline: contain;
+  cursor: grab;
+  touch-action: pan-y;
 }
 
-.projects > * {
-  scroll-snap-align: start;
+.projects.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .projects::-webkit-scrollbar {

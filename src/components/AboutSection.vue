@@ -3,7 +3,7 @@ import { profile } from "../data/profile";
 </script>
 
 <template>
-  <section id="about" class="section section--alt">
+  <section id="about" class="section section--canvas about-section">
     <div class="container">
       <h2 class="section__title">About Me</h2>
       <div class="about">
@@ -27,6 +27,10 @@ import { profile } from "../data/profile";
 </template>
 
 <style scoped>
+.about-section {
+  --section-glow: color-mix(in srgb, var(--color-accent) 13%, transparent);
+}
+
 .about {
   display: grid;
   grid-template-columns: 1.6fr 1fr;

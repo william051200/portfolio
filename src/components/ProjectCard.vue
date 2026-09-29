@@ -24,10 +24,6 @@ const orderedLinks = computed(() =>
       </h3>
       <p class="card__desc">{{ project.description }}</p>
 
-      <ul class="card__tags">
-        <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
-      </ul>
-
       <div class="card__links">
         <a
           v-for="link in orderedLinks"
@@ -77,7 +73,7 @@ const orderedLinks = computed(() =>
 .card__body {
   padding: var(--space-4);
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto minmax(1.5rem, auto);
+  grid-template-rows: auto minmax(0, 1fr) minmax(1.5rem, auto);
   flex: 1;
 }
 
@@ -92,24 +88,6 @@ const orderedLinks = computed(() =>
 .card__desc {
   color: var(--color-text-muted);
   flex: 1;
-}
-
-.card__tags {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  padding: 0;
-  margin: 0 0 var(--space-3);
-}
-
-.card__tags li {
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
-  background: var(--color-bg-soft);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  padding: 0.15rem 0.55rem;
 }
 
 .card__links {
