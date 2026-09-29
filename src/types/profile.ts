@@ -7,7 +7,9 @@ export interface SocialLink {
 
 export interface Profile {
   name: string;
-  /** Short headline shown under the name in the hero, e.g. "Full-Stack Developer". */
+  /** Compact professional identity shown above the hero headline. */
+  eyebrow: string;
+  /** Outcome-led statement shown as the main hero headline. */
   headline: string;
   /** One- or two-sentence intro shown in the hero. */
   tagline: string;
@@ -15,8 +17,6 @@ export interface Profile {
   about: string[];
   location: string;
   email: string;
-  /** Optional path to an avatar image placed in /public. */
-  avatar?: string;
   socials: SocialLink[];
   /** Small headline stats shown in the About section. */
   highlights: { label: string; value: string }[];

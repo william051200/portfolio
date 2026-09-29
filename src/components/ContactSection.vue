@@ -8,7 +8,9 @@ import SocialLinks from "./SocialLinks.vue";
     <div class="container contact">
       <h2 class="section__title">Get in Touch</h2>
       <p class="section__lead">
-        Have a project in mind or just want to say hi? I'd love to hear from you.
+        Looking for an engineer who can own production software, developer
+        automation, or AI-enabled applications from design through production
+        support? Let's talk.
       </p>
 
       <a :href="`mailto:${profile.email}`" class="btn btn--primary contact__email">

@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { projects } from "../data/projects";
 import ProjectCard from "./ProjectCard.vue";
 
 const track = ref<HTMLElement | null>(null);
+const displayProjects = computed(() => [
+  ...projects.filter((project) => project.featured),
+  ...projects.filter((project) => !project.featured),
+]);
 
 let targetLeft = 0;
 let rafId = 0;
@@ -19,40 +23,43 @@ function animate() {
     rafId = 0;
     return;
   }
+
   const diff = targetLeft - el.scrollLeft;
   if (Math.abs(diff) <= 1) {
     el.scrollLeft = targetLeft;
     rafId = 0;
     return;
   }
+
   el.scrollLeft += diff * 0.18;
   rafId = requestAnimationFrame(animate);
 }
 
-function onWheel(e: WheelEvent) {
+function onWheel(event: WheelEvent) {
   const el = track.value;
   if (!el) return;
 
-  const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+  const delta =
+    Math.abs(event.deltaY) >= Math.abs(event.deltaX)
+      ? event.deltaY
+      : event.deltaX;
   if (delta === 0) return;
 
   const maxLeft = el.scrollWidth - el.clientWidth;
   const atStart = el.scrollLeft <= 0;
   const atEnd = el.scrollLeft >= maxLeft - 1;
 
-  // Let the page scroll normally once the row hits an edge.
   if ((delta < 0 && atStart) || (delta > 0 && atEnd)) {
     stopAnimation();
     return;
   }
 
-  e.preventDefault();
+  event.preventDefault();
   if (!rafId) targetLeft = el.scrollLeft;
   targetLeft = Math.max(0, Math.min(maxLeft, targetLeft + delta));
   if (!rafId) rafId = requestAnimationFrame(animate);
 }
 
-// Manual interaction (dragging the scrollbar) should win over the wheel animation.
 function onPointerDown() {
   stopAnimation();
 }
@@ -71,7 +78,7 @@ onBeforeUnmount(() => {
 
 <template>
   <section id="projects" class="section section--alt">
-    <div class="container">
+    <div class="container projects__container">
       <h2 class="section__title">Projects</h2>
       <p class="section__lead">
         A selection of things I have built and worked on before.
@@ -79,7 +86,7 @@ onBeforeUnmount(() => {
 
       <div ref="track" class="projects">
         <ProjectCard
-          v-for="project in projects"
+          v-for="project in displayProjects"
           :key="project.title"
           :project="project"
         />
@@ -89,23 +96,22 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.container {
-  max-width: fit-content;
-  padding: 0 70px;
+.projects__container {
+  max-width: none;
+  padding: 0 clamp(var(--space-4), 5vw, 70px);
 }
 
 .projects {
-  padding: 4px;
   display: flex;
   flex-wrap: nowrap;
   gap: var(--space-4);
   overflow-x: auto;
+  padding: 4px 4px var(--space-3);
   -webkit-overflow-scrolling: touch;
-  padding-bottom: var(--space-3);
 }
 
 .projects > * {
-  flex: 0 0 320px;
+  flex: 0 0 min(360px, calc(100vw - 3rem));
   max-width: 500px;
 }
 

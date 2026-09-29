@@ -5,7 +5,7 @@ defineProps<{ project: Project }>();
 </script>
 
 <template>
-  <article :class="['card', { 'card--featured': project.featured }]">
+  <article class="card">
     <div v-if="project.image" class="card__media">
       <img :src="project.image" :alt="project.title" loading="lazy" />
     </div>
@@ -13,7 +13,6 @@ defineProps<{ project: Project }>();
     <div class="card__body">
       <h3 class="card__title">
         {{ project.title }}
-        <span v-if="project.featured" class="card__badge">Featured</span>
       </h3>
       <p class="card__desc">{{ project.description }}</p>
 
@@ -54,10 +53,6 @@ defineProps<{ project: Project }>();
   box-shadow: var(--shadow);
 }
 
-.card--featured {
-  border-color: color-mix(in srgb, var(--color-primary) 60%, var(--color-border));
-}
-
 .card__media {
   aspect-ratio: 16 / 9;
   background: var(--color-bg-soft);
@@ -82,17 +77,6 @@ defineProps<{ project: Project }>();
   gap: var(--space-2);
   font-size: 1.2rem;
   margin-bottom: var(--space-2);
-}
-
-.card__badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  border-radius: 999px;
-  padding: 0.1rem 0.5rem;
 }
 
 .card__desc {

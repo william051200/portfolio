@@ -2,25 +2,24 @@ import type { Profile } from "../types";
 
 export const profile: Profile = {
   name: "William Ng",
-  headline: "Software Development Engineer",
+  eyebrow: "Software Development Engineer · Production Systems · Applied AI",
+  headline: "I build reliable software for complex operational workflows.",
   tagline:
-    "I build reliable developer tooling and full-stack applications, turning day-to-day operational burdens into robust, automated systems. Currently developing and supporting the Microsoft Azure CLI.",
+    "I design, deliver, and support full-stack applications, developer tools, automation, and AI-enabled computer-vision systems, from architecture and implementation to deployment and incident resolution.",
   about: [
-    "I'm a software engineer based in Penang who enjoys building dependable tooling and shipping full-stack products. I currently work on the Microsoft Azure CLI at Centific, handling feature development, bug fixes, migrations, and triaging customer-reported issues, while leveraging GitHub Copilot to build automation and internal tooling.",
-    "Before that I spent three years at Jabil building TypeScript front ends and Python back ends, containerizing systems with Docker, and integrating hardware for IoT and smart-camera inspection solutions. I like turning ambiguous problems into clean, maintainable software, from CLI tools and REST APIs to React apps and Raspberry Pi deployments.",
-    "Outside of work, I like building small hobby projects for the fun of it, side tools and apps that let me experiment with new ideas and technologies. It's genuinely what I enjoy doing, turning a spark of an idea into something that actually works.",
+    "I'm a software engineer based in Penang with 5+ years of experience designing, building, modernizing, and supporting production software. In my current role, I develop features, investigate customer-reported issues, drive migrations, and build automation that makes engineering and support work more reliable, including contributions to Microsoft Azure CLI.",
+    "Previously at Jabil, I designed and delivered TypeScript and Python applications for manufacturing workflows, including Dockerized services, REST APIs, OCR, computer vision, cameras, and edge hardware. I enjoy turning ambiguous operational problems into maintainable systems and use AI-assisted tools to accelerate that work without giving up engineering judgment, testing, or ownership.",
   ],
   location: "Penang, Malaysia",
   email: "williamng0512@gmail.com",
-  // avatar: "avatar.jpg",      // place an image in /public and set the filename
   socials: [
     { label: "GitHub", url: "https://github.com/william051200", icon: "github" },
     { label: "LinkedIn", url: "https://www.linkedin.com/in/william1205/", icon: "linkedin" },
     { label: "Email", url: "mailto:williamng0512@gmail.com", icon: "mail" },
   ],
   highlights: [
-    { label: "Years Experience", value: "4+" },
-    { label: "Projects Shipped", value: "6+" },
-    { label: "Tech Stack", value: "20+" },
+    { label: "Years Building Software", value: "5+" },
+    { label: "Production Environments", value: "Apps + Edge" },
+    { label: "Delivery Ownership", value: "End to End" },
   ],
 };

@@ -12,9 +12,9 @@ function initials(name: string): string {
 </script>
 
 <template>
-  <section id="companies" class="section">
+  <section id="experience" class="section">
     <div class="container">
-      <h2 class="section__title">Companies &amp; Partnerships</h2>
+      <h2 class="section__title">Experience</h2>
       <p class="section__lead">
         Organizations I've worked with and the roles I held.
       </p>
@@ -151,5 +151,6 @@ function initials(name: string): string {
   .companies__item {
     flex-direction: column;
   }
+
 }
 </style>

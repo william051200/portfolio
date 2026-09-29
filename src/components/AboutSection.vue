@@ -60,7 +60,7 @@ import { profile } from "../data/profile";
 }
 
 .about__stat-value {
-  font-size: 1.8rem;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
   font-weight: 800;
   color: var(--color-primary);
 }

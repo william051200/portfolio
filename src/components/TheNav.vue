@@ -130,7 +130,7 @@ function close() {
   }
 
   .nav__links--open {
-    max-height: 320px;
+    max-height: 420px;
   }
 
   .nav__links a {

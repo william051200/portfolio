@@ -6,14 +6,17 @@ import { resolveSkillIcon } from "./skillIcons";
 <template>
   <section id="skills" class="section">
     <div class="container">
-      <h2 class="section__title">Skills</h2>
+      <p class="section__kicker">Technical capabilities</p>
+      <h2 class="section__title">Tools selected for the problem, not the trend</h2>
       <p class="section__lead">
-        Technologies and tools I work with.
+        A cross-layer toolkit for designing applications, automating workflows,
+        and supporting software in production.
       </p>
 
       <div class="skills">
         <div v-for="group in skills" :key="group.category" class="skills__group">
           <h3 class="skills__category">{{ group.category }}</h3>
+          <p class="skills__summary">{{ group.summary }}</p>
           <ul class="skills__list">
             <li v-for="item in group.items" :key="item" class="skills__badge">
               <component
@@ -45,7 +48,7 @@ import { resolveSkillIcon } from "./skillIcons";
 <style scoped>
 .skills {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-4);
 }
 
@@ -58,8 +61,13 @@ import { resolveSkillIcon } from "./skillIcons";
 
 .skills__category {
   font-size: 1.1rem;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
   color: var(--color-text);
+}
+
+.skills__summary {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
 }
 
 .skills__list {
@@ -93,5 +101,17 @@ import { resolveSkillIcon } from "./skillIcons";
 .skills__badge:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+@media (max-width: 980px) {
+  .skills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .skills {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

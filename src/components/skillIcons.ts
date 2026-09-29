@@ -42,6 +42,7 @@ const skillIcons: Record<string, Component> = {
   "raspberry pi": IconRaspberryPi,
   "aws s3": IconAwsS3,
   "microsoft azure cli": IconAzure,
+  "microsoft azure": IconAzure,
   "microsoft power apps": IconPowerApps,
   "microsoft power automate": IconPowerAutomate,
   "github copilot": IconCopilot,

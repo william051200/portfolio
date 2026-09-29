@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TheNav from "./components/TheNav.vue";
 import HeroSection from "./components/HeroSection.vue";
+import StrengthsSection from "./components/StrengthsSection.vue";
 import AboutSection from "./components/AboutSection.vue";
 import SkillsSection from "./components/SkillsSection.vue";
 import ProjectsSection from "./components/ProjectsSection.vue";
@@ -13,10 +14,11 @@ import TheFooter from "./components/TheFooter.vue";
   <TheNav />
   <main>
     <HeroSection />
-    <AboutSection />
-    <SkillsSection />
+    <StrengthsSection />
     <ProjectsSection />
     <CompaniesSection />
+    <SkillsSection />
+    <AboutSection />
     <ContactSection />
   </main>
   <TheFooter />
