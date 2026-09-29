@@ -1,74 +1,69 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
+import { selectActiveSection } from "./activeSection";
 
-/**
- * Tracks which section is currently in view so the nav can highlight it.
- * Uses IntersectionObserver against the given section ids, plus a
- * bottom-of-page check so the final (possibly short) section still highlights
- * when the user reaches the end of the document.
- */
 export function useActiveSection(ids: string[]) {
   const activeId = ref(ids[0] ?? "");
-  let observer: IntersectionObserver | null = null;
+  let sections: HTMLElement[] = [];
+  let frameId = 0;
+  let mounted = false;
 
-  // Source of truth for what is currently within the detection band. The
-  // IntersectionObserver only emits transition events, so we keep this set in
-  // sync and resolve the active id from it on every relevant event.
-  const intersecting = new Set<string>();
-
-  function updateActive() {
-    const lastId = ids[ids.length - 1];
-    if (!lastId) return;
+  function updateActiveSection() {
+    frameId = 0;
+    if (sections.length === 0) return;
 
     const atBottom =
       window.innerHeight + window.scrollY >=
       document.documentElement.scrollHeight - 2;
-    if (atBottom) {
-      // The short final section may never reach the centered band, so force it
-      // while the page is scrolled to the very bottom.
-      activeId.value = lastId;
-      return;
-    }
+    const navHeight = Number.parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--nav-height")
+    ) || 0;
+    const activationLine = navHeight + Math.min(window.innerHeight * 0.24, 180);
 
-    // Pick the lowest section (latest in document order) currently in the band.
-    // This re-selects the truly-visible section as soon as the bottom override
-    // releases, so no section is skipped when scrolling back up.
-    for (let i = ids.length - 1; i >= 0; i--) {
-      if (intersecting.has(ids[i])) {
-        activeId.value = ids[i];
-        return;
-      }
-    }
+    activeId.value = selectActiveSection(
+      sections.map((section) => ({
+        id: section.id,
+        top: section.getBoundingClientRect().top,
+      })),
+      activationLine,
+      atBottom
+    );
+  }
+
+  function scheduleUpdate() {
+    if (!mounted || frameId) return;
+    frameId = window.requestAnimationFrame(updateActiveSection);
+  }
+
+  function refreshSections() {
+    sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+    scheduleUpdate();
+  }
+
+  function syncFromHash() {
+    const hashId = window.location.hash.slice(1);
+    if (ids.includes(hashId)) activeId.value = hashId;
+    scheduleUpdate();
   }
 
   onMounted(() => {
-    observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            intersecting.add(entry.target.id);
-          } else {
-            intersecting.delete(entry.target.id);
-          }
-        }
-        updateActive();
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-    );
+    mounted = true;
+    refreshSections();
+    syncFromHash();
 
-    for (const id of ids) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
-
-    window.addEventListener("scroll", updateActive, { passive: true });
-    window.addEventListener("resize", updateActive);
-    updateActive();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", refreshSections);
+    window.addEventListener("hashchange", syncFromHash);
+    document.fonts?.ready.then(refreshSections);
   });
 
   onBeforeUnmount(() => {
-    observer?.disconnect();
-    window.removeEventListener("scroll", updateActive);
-    window.removeEventListener("resize", updateActive);
+    mounted = false;
+    if (frameId) window.cancelAnimationFrame(frameId);
+    window.removeEventListener("scroll", scheduleUpdate);
+    window.removeEventListener("resize", refreshSections);
+    window.removeEventListener("hashchange", syncFromHash);
   });
 
   return { activeId };

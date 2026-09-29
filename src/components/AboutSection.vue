@@ -9,7 +9,10 @@ import { profile } from "../data/profile";
       <div class="about">
         <div class="about__text">
           <p v-for="(para, i) in profile.about" :key="i">{{ para }}</p>
-          <p class="about__meta">📍 {{ profile.location }}</p>
+          <p class="about__meta">
+            <span aria-hidden="true">📍</span>
+            <span>{{ profile.location }}</span>
+          </p>
         </div>
 
         <ul class="about__stats">
@@ -38,6 +41,9 @@ import { profile } from "../data/profile";
 }
 
 .about__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   color: var(--color-text);
   font-weight: 500;
 }
@@ -47,16 +53,14 @@ import { profile } from "../data/profile";
   margin: 0;
   padding: 0;
   display: grid;
-  gap: var(--space-3);
+  border-top: 1px solid var(--color-border);
 }
 
 .about__stats li {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: var(--space-4);
+  padding: var(--space-3) 0;
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .about__stat-value {
@@ -77,12 +81,27 @@ import { profile } from "../data/profile";
 
   .about__stats {
     grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .about__stats li {
+    padding: var(--space-3);
+    border-right: 1px solid var(--color-border);
+  }
+
+  .about__stats li:last-child {
+    border-right: 0;
   }
 }
 
 @media (max-width: 520px) {
   .about__stats {
     grid-template-columns: 1fr;
+  }
+
+  .about__stats li {
+    padding: var(--space-3) 0;
+    border-right: 0;
   }
 }
 </style>

@@ -5,6 +5,8 @@ export interface CompanyRole {
 
 export interface Company {
   name: string;
+  /** Whether this is the current role. */
+  current?: boolean;
   /** Your role/title at the company. */
   role: string;
   /** Time period, e.g. "2022 — Present". */

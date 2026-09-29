@@ -3,6 +3,7 @@ import type { Company } from "../types";
 export const companies: Company[] = [
   {
     name: "Centific Global Solutions",
+    current: true,
     role: "Software Development Engineer",
     period: "Nov 2025 — Present",
     summary:
@@ -46,6 +47,5 @@ export const companies: Company[] = [
       "SQL-to-NoSQL data migration",
       "React Native interface enhancements",
     ],
-    url: "#",
   },
 ];

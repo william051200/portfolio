@@ -23,9 +23,6 @@ import { strengths } from "../data/strengths";
           </span>
           <h3>{{ strength.title }}</h3>
           <p>{{ strength.description }}</p>
-          <ul>
-            <li v-for="item in strength.evidence" :key="item">{{ item }}</li>
-          </ul>
         </article>
       </div>
     </div>
@@ -40,10 +37,12 @@ import { strengths } from "../data/strengths";
 }
 
 .strengths__card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: var(--space-4);
+  padding: var(--space-2) var(--space-4) var(--space-2) 0;
+  border-right: 1px solid var(--color-border);
+}
+
+.strengths__card:last-child {
+  border-right: 0;
 }
 
 .strengths__number {
@@ -63,27 +62,27 @@ import { strengths } from "../data/strengths";
   color: var(--color-text-muted);
 }
 
-.strengths__card ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  list-style: none;
-  padding: 0;
-  margin: var(--space-4) 0 0;
-}
-
-.strengths__card li {
+.strengths__evidence {
   color: var(--color-text);
-  background: var(--color-bg-soft);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  padding: 0.2rem 0.6rem;
+  margin: var(--space-4) 0 0;
   font-size: 0.78rem;
+  font-weight: 600;
 }
 
 @media (max-width: 820px) {
   .strengths {
     grid-template-columns: 1fr;
+  }
+
+  .strengths__card {
+    padding: 0 0 var(--space-4);
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .strengths__card:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
   }
 }
 </style>

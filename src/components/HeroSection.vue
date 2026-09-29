@@ -48,9 +48,15 @@ import SocialLinks from "./SocialLinks.vue";
 }
 
 .hero__inner {
-  min-height: calc(82vh - var(--nav-height));
+  min-height: calc(74vh - var(--nav-height));
   display: flex;
   align-items: center;
+}
+
+@media (prefers-color-scheme: light) {
+  .hero::after {
+    opacity: 0.55;
+  }
 }
 
 .hero__content {

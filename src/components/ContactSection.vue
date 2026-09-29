@@ -13,8 +13,12 @@ import SocialLinks from "./SocialLinks.vue";
         support? Let's talk.
       </p>
 
-      <a :href="`mailto:${profile.email}`" class="btn btn--primary contact__email">
-        {{ profile.email }}
+      <a
+        :href="`mailto:${profile.email}`"
+        class="btn btn--primary contact__email"
+        :aria-label="`Email ${profile.name} at ${profile.email}`"
+      >
+        Email me
       </a>
 
       <SocialLinks :links="profile.socials" class="contact__socials" />
@@ -23,8 +27,8 @@ import SocialLinks from "./SocialLinks.vue";
 </template>
 
 <style scoped>
-.section__lead{
-  margin: 0 auto var(--space-4)
+.section__lead {
+  margin: 0 auto var(--space-4);
 }
 
 .contact {

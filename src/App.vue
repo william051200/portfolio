@@ -3,9 +3,9 @@ import TheNav from "./components/TheNav.vue";
 import HeroSection from "./components/HeroSection.vue";
 import StrengthsSection from "./components/StrengthsSection.vue";
 import AboutSection from "./components/AboutSection.vue";
-import SkillsSection from "./components/SkillsSection.vue";
+import CapabilitiesSection from "./components/CapabilitiesSection.vue";
 import ProjectsSection from "./components/ProjectsSection.vue";
-import CompaniesSection from "./components/CompaniesSection.vue";
+import ExperienceSection from "./components/ExperienceSection.vue";
 import ContactSection from "./components/ContactSection.vue";
 import TheFooter from "./components/TheFooter.vue";
 </script>
@@ -16,8 +16,8 @@ import TheFooter from "./components/TheFooter.vue";
     <HeroSection />
     <StrengthsSection />
     <ProjectsSection />
-    <CompaniesSection />
-    <SkillsSection />
+    <ExperienceSection />
+    <CapabilitiesSection />
     <AboutSection />
     <ContactSection />
   </main>

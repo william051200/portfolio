@@ -32,6 +32,7 @@ function close() {
           :key="item.id"
           :href="`#${item.id}`"
           :class="{ 'is-active': activeId === item.id }"
+          :aria-current="activeId === item.id ? 'location' : undefined"
           @click="close"
         >
           {{ item.label }}
@@ -140,6 +141,11 @@ function close() {
 
   .nav__links a.is-active::after {
     display: none;
+  }
+
+  .nav__links a.is-active {
+    color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 8%, transparent);
   }
 }
 </style>
