@@ -1,12 +1,12 @@
-import { ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
+import { exceedsDragThreshold } from "./dragScrollMath";
+import { resolveHorizontalWheel } from "./horizontalWheel";
 
-const DRAG_THRESHOLD_PX = 5;
-
-export function exceedsDragThreshold(distance: number): boolean {
-  return Math.abs(distance) >= DRAG_THRESHOLD_PX;
+interface DragScrollOptions {
+  wheelToHorizontal?: boolean;
 }
 
-export function useDragScroll() {
+export function useDragScroll(options: DragScrollOptions = {}) {
   const element = ref<HTMLElement | null>(null);
   const isDragging = ref(false);
 
@@ -15,6 +15,7 @@ export function useDragScroll() {
   let startY = 0;
   let startScrollLeft = 0;
   let suppressClick = false;
+  let wheelElement: HTMLElement | null = null;
 
   function onPointerDown(event: PointerEvent) {
     const target = element.value;
@@ -68,6 +69,34 @@ export function useDragScroll() {
     event.stopPropagation();
     suppressClick = false;
   }
+
+  function onWheel(event: WheelEvent) {
+    const target = element.value;
+    if (!target) return;
+
+    const result = resolveHorizontalWheel({
+      deltaX: event.deltaX,
+      deltaY: event.deltaY,
+      deltaMode: event.deltaMode,
+      scrollLeft: target.scrollLeft,
+      scrollWidth: target.scrollWidth,
+      clientWidth: target.clientWidth,
+    });
+
+    if (!result.shouldHandle) return;
+    event.preventDefault();
+    target.scrollLeft = result.nextScrollLeft;
+  }
+
+  onMounted(() => {
+    if (!options.wheelToHorizontal || !element.value) return;
+    wheelElement = element.value;
+    wheelElement.addEventListener("wheel", onWheel, { passive: false });
+  });
+
+  onBeforeUnmount(() => {
+    wheelElement?.removeEventListener("wheel", onWheel);
+  });
 
   return {
     element,

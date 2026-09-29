@@ -149,7 +149,6 @@ function initials(name: string): string {
 
 .timeline__content {
   padding: 0 0 var(--space-5);
-  border-bottom: 1px solid var(--color-border);
 }
 
 .timeline__item:last-child .timeline__content {

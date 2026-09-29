@@ -3,7 +3,7 @@ import { strengths } from "../data/strengths";
 </script>
 
 <template>
-  <section id="strengths" class="section section--canvas">
+  <section id="strengths" class="section section--bridge">
     <div class="container">
       <p class="section__kicker">What I bring</p>
       <h2 class="section__title">Engineering strengths grounded in delivery</h2>

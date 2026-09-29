@@ -10,7 +10,7 @@ const {
   onPointerMove,
   finishPointer,
   onClickCapture,
-} = useDragScroll();
+} = useDragScroll({ wheelToHorizontal: true });
 </script>
 
 <template>
