@@ -168,7 +168,7 @@ function initials(name: string): string {
 
 .capabilities__item {
   display: flex;
-  flex: 0 0 112px;
+  flex: 0 0 88px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -179,8 +179,8 @@ function initials(name: string): string {
 
 .capabilities__icon,
 .capabilities__fallback {
-  width: 46px;
-  height: 46px;
+  width: 34px;
+  height: 34px;
   transition: transform var(--transition);
 }
 
@@ -206,7 +206,7 @@ function initials(name: string): string {
 }
 
 .capabilities__name {
-  max-width: 112px;
+  max-width: 88px;
   color: var(--color-text-muted);
   font-size: 0.75rem;
   font-weight: 600;
@@ -220,17 +220,17 @@ function initials(name: string): string {
   }
 
   .capabilities__item {
-    flex-basis: 96px;
+    flex-basis: 72px;
   }
 
   .capabilities__icon,
   .capabilities__fallback {
-    width: 38px;
-    height: 38px;
+    width: 28px;
+    height: 28px;
   }
 
   .capabilities__name {
-    max-width: 96px;
+    max-width: 72px;
   }
 }
 
