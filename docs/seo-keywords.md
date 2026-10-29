@@ -9,7 +9,7 @@ The portfolio targets searches for William Ng and software engineering work in P
 | Primary | William Ng software engineer | Page title, profile, and about section |
 | Primary | software engineer in Penang, Malaysia | Page title, description, and profile location |
 | Secondary | full-stack applications | Profile and project descriptions |
-| Secondary | developer automation | Profile, experience, and projects |
+| Secondary | workflow automation | Profile, experience, and projects |
 | Secondary | software development engineer | Profile and structured data |
 | Supporting | TypeScript and Python applications | About section and capabilities |
 | Supporting | AI-enabled computer vision systems | Profile and computer vision projects |

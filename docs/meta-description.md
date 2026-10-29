@@ -8,7 +8,7 @@ Used by the HTML `<title>`, `og:title`, and `twitter:title` in `index.html`.
 
 ## Meta description
 
-William Ng is a software engineer in Penang, Malaysia, building full-stack applications, developer automation, and AI-enabled computer vision systems.
+William Ng is a software engineer in Penang, Malaysia, building full-stack applications, workflow automation, and AI-enabled computer vision systems.
 
 Used by `meta name="description"`, `og:description`, `twitter:description`, and the JSON-LD `description` in `index.html`.
 

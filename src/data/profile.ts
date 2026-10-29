@@ -3,7 +3,7 @@ import type { Profile } from "../types";
 export const profile: Profile = {
   name: "William Ng",
   eyebrow:
-    "Software Development Engineer · Full-Stack Applications · Developer Automation",
+    "Software Development Engineer · Full-Stack Applications · Workflow Automation",
   headline: "I build reliable software for complex operational workflows.",
   tagline:
     "I design, deliver, and support full-stack applications, developer tools, automation, and AI-enabled computer-vision systems, from architecture and implementation to deployment and incident resolution.",
