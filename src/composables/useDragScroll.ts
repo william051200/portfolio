@@ -1,6 +1,6 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
-import { exceedsDragThreshold } from "./dragScrollMath";
-import { resolveHorizontalWheel } from "./horizontalWheel";
+import { exceedsDragThreshold } from "../logic/dragScrollMath.ts";
+import { resolveHorizontalWheel } from "../logic/horizontalWheel.ts";
 
 interface DragScrollOptions {
   wheelToHorizontal?: boolean;
@@ -26,7 +26,6 @@ export function useDragScroll(options: DragScrollOptions = {}) {
     startY = event.clientY;
     startScrollLeft = target.scrollLeft;
     suppressClick = false;
-    target.setPointerCapture(event.pointerId);
   }
 
   function onPointerMove(event: PointerEvent) {
@@ -38,6 +37,7 @@ export function useDragScroll(options: DragScrollOptions = {}) {
     if (!isDragging.value) {
       if (!exceedsDragThreshold(distance)) return;
       if (Math.abs(distance) <= Math.abs(verticalDistance)) return;
+      target.setPointerCapture(event.pointerId);
     }
 
     isDragging.value = true;

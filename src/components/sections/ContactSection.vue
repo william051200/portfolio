@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { profile } from "../data/profile";
-import SocialLinks from "./SocialLinks.vue";
+import { profile } from "../../data/profile";
+import SocialLinks from "../SocialLinks.vue";
 </script>
 
 <template>
-  <section id="contact" class="section contact-section">
+  <section id="contact" class="section">
     <div class="container">
       <div class="contact">
         <h2 class="section__title">Get in Touch</h2>

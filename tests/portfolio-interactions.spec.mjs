@@ -1,9 +1,40 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { capabilityTechnologies } from "../src/data/skills.ts";
-import { exceedsDragThreshold } from "../src/composables/dragScrollMath.ts";
-import { resolveHorizontalWheel } from "../src/composables/horizontalWheel.ts";
-import { wrapMarqueeOffset } from "../src/composables/marqueeMath.ts";
+import { exceedsDragThreshold } from "../src/logic/dragScrollMath.ts";
+import { resolveHorizontalWheel } from "../src/logic/horizontalWheel.ts";
+import { wrapMarqueeOffset } from "../src/logic/marqueeMath.ts";
+import { orderProjectLinks } from "../src/logic/projectLinks.ts";
+
+test("puts demo links first without changing link order within each group", () => {
+  const links = [
+    { label: "Source", url: "https://example.com/source" },
+    { label: "Live DEMO", url: "https://example.com/demo" },
+    { label: "Documentation", url: "https://example.com/docs" },
+    { label: "Demo video", url: "https://example.com/video" },
+  ];
+
+  assert.deepEqual(orderProjectLinks(links), [
+    links[1],
+    links[3],
+    links[0],
+    links[2],
+  ]);
+});
+
+test("ordering project links does not mutate the source", () => {
+  const links = Object.freeze([
+    Object.freeze({ label: "Source", url: "https://example.com/source" }),
+    Object.freeze({ label: "Demo", url: "https://example.com/demo" }),
+  ]);
+
+  const ordered = orderProjectLinks(links);
+
+  assert.equal(links[0].label, "Source");
+  assert.equal(ordered[0], links[1]);
+  assert.notEqual(ordered, links);
+  assert.deepEqual(orderProjectLinks([]), []);
+});
 
 test("wraps marquee offsets in both directions", () => {
   assert.equal(wrapMarqueeOffset(125, 100), 25);

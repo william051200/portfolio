@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useDragScroll } from "../composables/useDragScroll";
-import { projects } from "../data/projects";
-import ProjectCard from "./ProjectCard.vue";
+import { useDragScroll } from "../../composables/useDragScroll";
+import { projects } from "../../data/projects";
+import ProjectCard from "../projects/ProjectCard.vue";
 
 const {
   element: projectTrack,
@@ -22,10 +22,18 @@ const {
         Applications, tools, and production systems I have designed, built, or
         contributed to.
       </p>
+      <p id="projects-instructions" class="visually-hidden">
+        Use the Left and Right arrow keys to scroll through projects, or drag
+        horizontally.
+      </p>
 
       <div
         ref="projectTrack"
         class="projects"
+        role="region"
+        aria-label="Projects"
+        aria-describedby="projects-instructions"
+        tabindex="0"
         :class="{ 'is-dragging': isDragging }"
         @pointerdown="onPointerDown"
         @pointermove="onPointerMove"

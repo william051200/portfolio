@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { profile } from "../data/profile";
-import SocialLinks from "./SocialLinks.vue";
+import { profile } from "../../data/profile";
+import SocialLinks from "../SocialLinks.vue";
 </script>
 
 <template>
@@ -17,7 +17,7 @@ import SocialLinks from "./SocialLinks.vue";
           <a href="#experience" class="btn btn--ghost">See My Experience</a>
         </div>
 
-        <SocialLinks :links="profile.socials" class="hero__socials" />
+        <SocialLinks :links="profile.socials" />
       </div>
     </div>
   </section>

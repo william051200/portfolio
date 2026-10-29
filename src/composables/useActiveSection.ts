@@ -1,5 +1,5 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
-import { selectActiveSection } from "./activeSection";
+import { selectActiveSection } from "../logic/activeSection";
 
 export function useActiveSection(ids: string[]) {
   const activeId = ref(ids[0] ?? "");

@@ -1,39 +1,53 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { navItems } from "../data/nav";
-import { profile } from "../data/profile";
-import { useActiveSection } from "../composables/useActiveSection";
+import { navItems } from "../../data/nav";
+import { profile } from "../../data/profile";
+import { useActiveSection } from "../../composables/useActiveSection";
 
 const { activeId } = useActiveSection(navItems.map((n) => n.id));
 const menuOpen = ref(false);
+const menuToggle = ref<HTMLButtonElement | null>(null);
 
-function close() {
+function closeMenu() {
   menuOpen.value = false;
+}
+
+function dismissMenu() {
+  if (!menuOpen.value) return;
+  closeMenu();
+  menuToggle.value?.focus();
 }
 </script>
 
 <template>
-  <header class="nav">
+  <header class="nav" @keydown.esc="dismissMenu">
     <div class="container nav__inner">
-      <a href="#home" class="nav__brand" @click="close">{{ profile.name }}</a>
+      <a href="#home" class="nav__brand" @click="closeMenu">{{ profile.name }}</a>
 
       <button
+        ref="menuToggle"
+        type="button"
         class="nav__toggle"
         :aria-expanded="menuOpen"
+        aria-controls="primary-navigation"
         aria-label="Toggle navigation menu"
         @click="menuOpen = !menuOpen"
       >
         <span></span><span></span><span></span>
       </button>
 
-      <nav :class="['nav__links', { 'nav__links--open': menuOpen }]">
+      <nav
+        id="primary-navigation"
+        aria-label="Primary"
+        :class="['nav__links', { 'nav__links--open': menuOpen }]"
+      >
         <a
           v-for="item in navItems"
           :key="item.id"
           :href="`#${item.id}`"
           :class="{ 'is-active': activeId === item.id }"
           :aria-current="activeId === item.id ? 'location' : undefined"
-          @click="close"
+          @click="closeMenu"
         >
           {{ item.label }}
         </a>
@@ -126,12 +140,15 @@ function close() {
     background: var(--color-bg-soft);
     border-bottom: 1px solid var(--color-border);
     max-height: 0;
+    visibility: hidden;
     overflow: hidden;
     transition: max-height var(--transition);
   }
 
   .nav__links--open {
-    max-height: 420px;
+    max-height: calc(100dvh - var(--nav-height));
+    visibility: visible;
+    overflow-y: auto;
   }
 
   .nav__links a {

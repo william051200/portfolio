@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { companies } from "../data/companies";
+import { companies } from "../../data/companies";
 
 function initials(name: string): string {
   return name
@@ -12,7 +12,7 @@ function initials(name: string): string {
 </script>
 
 <template>
-  <section id="experience" class="section section--surface experience-section">
+  <section id="experience" class="section section--surface">
     <div class="container">
       <p class="section__kicker">Career Journey</p>
       <h2 class="section__title">Experience</h2>
@@ -149,10 +149,6 @@ function initials(name: string): string {
 
 .timeline__content {
   padding: 0 0 var(--space-5);
-}
-
-.timeline__item:last-child .timeline__content {
-  border-bottom: 0;
 }
 
 .timeline__header {

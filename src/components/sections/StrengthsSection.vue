@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { strengths } from "../data/strengths";
+import { strengths } from "../../data/strengths";
 </script>
 
 <template>
@@ -60,13 +60,6 @@ import { strengths } from "../data/strengths";
 
 .strengths__card p {
   color: var(--color-text-muted);
-}
-
-.strengths__evidence {
-  color: var(--color-text);
-  margin: var(--space-4) 0 0;
-  font-size: 0.78rem;
-  font-weight: 600;
 }
 
 @media (max-width: 820px) {

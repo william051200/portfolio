@@ -4,7 +4,7 @@ export interface SectionPosition {
 }
 
 export function selectActiveSection(
-  sections: SectionPosition[],
+  sections: readonly SectionPosition[],
   activationLine: number,
   atBottom: boolean
 ): string {

@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { Project } from "../types";
+import { orderProjectLinks } from "../../logic/projectLinks";
+import type { Project } from "../../types";
 
 const props = defineProps<{ project: Project }>();
-const orderedLinks = computed(() =>
-  [...props.project.links].sort((left, right) => {
-    const priority = (label: string) =>
-      label.toLowerCase().includes("demo") ? 0 : 1;
-    return priority(left.label) - priority(right.label);
-  })
-);
+const orderedLinks = computed(() => orderProjectLinks(props.project.links));
 </script>
 
 <template>
@@ -87,7 +82,6 @@ const orderedLinks = computed(() =>
 
 .card__desc {
   color: var(--color-text-muted);
-  flex: 1;
 }
 
 .card__links {

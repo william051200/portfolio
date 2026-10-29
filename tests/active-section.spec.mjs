@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { selectActiveSection } from "../src/composables/activeSection.ts";
+import { selectActiveSection } from "../src/logic/activeSection.ts";
 
 const sections = [
   { id: "home", top: -500 },

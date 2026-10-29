@@ -41,7 +41,7 @@ If something is in the portfolio but not the resume, leave it untouched.
 2. **Read every `src/data/*.ts` file** to learn what already exists. Build a
    mental diff of resume-vs-portfolio for each section.
 3. **Add only what's missing** per the rules below.
-4. **Verify** with `npm run type-check` (and `npm run build` for a full check).
+4. **Verify** with `npm test` and `npm run build` (which includes type checking).
 5. **Report** a concise summary of what was added and explicitly confirm that
    nothing was removed.
 
@@ -57,26 +57,25 @@ If something is in the portfolio but not the resume, leave it untouched.
     description: string,   // 1–2 sentences, condensed from the resume bullet(s)
     tags: string[],        // key technologies, matching the casing used elsewhere
     links: ProjectLink[],  // add { label: "Source", url } when a GitHub URL exists
-    featured?: boolean,    // only set true for flagship items already styled so
   }
   ```
 - Keep the repo's tone: portfolio descriptions are slightly condensed versions of
   the resume text, not verbatim copies. Reuse tag names already present in the
   file when they apply (e.g. `Python`, `Docker`, `REST API`, `AI`).
-- Preserve ordering convention (featured projects first).
+- Preserve the existing project order.
 
 ### Skills (`src/data/skills.ts`)
 
-- Each `SkillGroup` has a `category` and `items[]`. Add any new resume skill to
-  the most appropriate existing category (`Languages`, `Frameworks & Libraries`,
-  `Tools & Platforms`). Create a new group only if no category fits.
+- Each `SkillGroup` has a `category`, `summary`, and `items[]`. Add any new resume
+  skill to the most appropriate existing category. Create a new group only if no
+  category fits.
 - Match items case-insensitively to avoid duplicates. Never remove items.
 
 ### Work experience (`src/data/companies.ts`)
 
 - Match by `name` + `role`. For a genuinely new role/company on the resume,
-  append a `Company` (`name`, `role`, `period`, `summary`, `url`). Use `"#"` for
-  `url` if no link is available, matching existing entries.
+  append a `Company` (`name`, `role`, `period`, `summary`, optional `url`). Omit
+  `url` when no company website is available.
 - If an existing company's `period` changed (e.g. an end date was added), update
   that field. Never remove past roles.
 
@@ -93,7 +92,7 @@ If something is in the portfolio but not the resume, leave it untouched.
 Run from the repo root:
 
 ```sh
-npm run type-check
+npm test
 npm run build
 ```
 
@@ -106,4 +105,4 @@ End with a short report:
 - **Added**: bullet list of new entries per section (or "none").
 - **Updated**: any augmented existing entries (or "none").
 - **Removed**: always "none — additive sync".
-- Note the verification result (type-check/build passed).
+- Note the verification result (tests/build passed).

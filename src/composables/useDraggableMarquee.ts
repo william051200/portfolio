@@ -1,5 +1,5 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-import { wrapMarqueeOffset } from "./marqueeMath";
+import { wrapMarqueeOffset } from "../logic/marqueeMath";
 
 const SPEED_PX_PER_SECOND = 34;
 

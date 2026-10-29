@@ -16,15 +16,13 @@ import IconAwsS3 from "~icons/logos/aws-s3";
 import IconAzure from "~icons/logos/microsoft-azure";
 import IconCopilot from "~icons/logos/github-copilot";
 import IconOpenCv from "~icons/logos/opencv";
-import IconAzureDevOps from "~icons/devicon/azuredevops";
 import IconPowerShell from "~icons/devicon/powershell";
 import IconDatabase from "~icons/mdi/database";
 import IconDatabaseOutline from "~icons/mdi/database-outline";
 import IconOcr from "~icons/mdi/ocr";
-import IconPackage from "~icons/mdi/package-variant-closed";
 import IconMqtt from "~icons/simple-icons/mqtt";
-import IconPowerApps from "./icons/PowerApps.vue";
-import IconPowerAutomate from "./icons/PowerAutomate.vue";
+import IconPowerApps from "../icons/PowerApps.vue";
+import IconPowerAutomate from "../icons/PowerAutomate.vue";
 
 /**
  * Maps a normalized technology name to a brand or semantic icon component.
@@ -47,11 +45,9 @@ const skillIcons: Record<string, Component> = {
   docker: IconDocker,
   git: IconGit,
   linux: IconLinux,
-  pyinstaller: IconPackage,
   "raspberry pi": IconRaspberryPi,
   "aws s3": IconAwsS3,
   "microsoft azure cli": IconAzure,
-  "azure devops rest api": IconAzureDevOps,
   "microsoft azure": IconAzure,
   "microsoft power apps": IconPowerApps,
   "microsoft power automate": IconPowerAutomate,
